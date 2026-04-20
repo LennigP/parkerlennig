@@ -66,6 +66,20 @@ h1 {
   background: #e9edf2;
 }
 
+.project-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.project-images img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #e9edf2;
+}
 .project-card h2 {
   margin: 0 0 6px 0;
   font-size: 1.8rem;
