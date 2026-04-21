@@ -147,7 +147,12 @@
   <div id="lightbox" aria-hidden="true">
     <button id="lightbox-close" type="button" aria-label="Close image viewer">&times;</button>
     <button id="prev-btn" type="button" aria-label="Previous image">&#10094;</button>
-    <img id="lightbox-img" src="" alt="Expanded image" />
+
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Expanded image" />
+      <div id="lightbox-caption"></div>
+    </div>
+
     <button id="next-btn" type="button" aria-label="Next image">&#10095;</button>
     <div id="lightbox-counter"></div>
   </div>
@@ -159,6 +164,7 @@
     const nextBtn = document.getElementById("next-btn");
     const closeBtn = document.getElementById("lightbox-close");
     const counter = document.getElementById("lightbox-counter");
+    const caption = document.getElementById("lightbox-caption");
 
     let currentImages = [];
     let currentIndex = 0;
@@ -182,8 +188,10 @@
     }
 
     function updateLightboxImage() {
-      lightboxImg.src = currentImages[currentIndex].src;
-      lightboxImg.alt = currentImages[currentIndex].alt || "Expanded image";
+      const currentImage = currentImages[currentIndex];
+      lightboxImg.src = currentImage.src;
+      lightboxImg.alt = currentImage.alt || "Expanded image";
+      caption.textContent = currentImage.alt || "";
       counter.textContent = currentImages.length > 1 ? `${currentIndex + 1} / ${currentImages.length}` : "";
       prevBtn.style.display = currentImages.length > 1 ? "flex" : "none";
       nextBtn.style.display = currentImages.length > 1 ? "flex" : "none";
@@ -206,6 +214,7 @@
       lightbox.setAttribute("aria-hidden", "true");
       lightboxImg.src = "";
       lightboxImg.alt = "Expanded image";
+      caption.textContent = "";
       document.body.style.overflow = "";
       currentImages = [];
       currentIndex = 0;
@@ -228,6 +237,10 @@
     });
 
     lightboxImg.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+
+    document.querySelector(".lightbox-content").addEventListener("click", function (event) {
       event.stopPropagation();
     });
 
