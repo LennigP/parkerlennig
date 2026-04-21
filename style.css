@@ -192,10 +192,18 @@ h1 {
   display: flex;
 }
 
+.lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 92vw;
+  max-height: 92vh;
+}
+
 #lightbox-img {
   display: block;
   max-width: min(92vw, 1400px);
-  max-height: 90vh;
+  max-height: 82vh;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -207,6 +215,15 @@ h1 {
 
 #lightbox.active #lightbox-img {
   transform: scale(1);
+}
+
+#lightbox-caption {
+  margin-top: 14px;
+  max-width: 80vw;
+  color: #e5e7eb;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: center;
 }
 
 #prev-btn,
@@ -255,13 +272,13 @@ h1 {
 }
 
 #prev-btn:hover,
-#next-btn:hover,
-#lightbox-close:hover {
+#next-btn:hover {
   background: rgba(15, 23, 42, 0.85);
   transform: translateY(-50%) scale(1.05);
 }
 
 #lightbox-close:hover {
+  background: rgba(15, 23, 42, 0.85);
   transform: scale(1.05);
 }
 
@@ -327,6 +344,11 @@ h1 {
     height: 48px;
     font-size: 1.7rem;
   }
+
+  #lightbox-caption {
+    max-width: 88vw;
+    font-size: 0.9rem;
+  }
 }
 
 /* SMALL MOBILE */
@@ -362,6 +384,11 @@ h1 {
 
   #lightbox-counter {
     bottom: 12px;
+    font-size: 0.85rem;
+  }
+
+  #lightbox-caption {
+    margin-top: 10px;
     font-size: 0.85rem;
   }
 }
