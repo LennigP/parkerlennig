@@ -66,12 +66,12 @@ h1 {
   background: #e9edf2;
 }
 
+/* FLEXIBLE PROJECT IMAGE GRIDS */
 .project-images {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
-  margin-bottom: 22px;
   width: 100%;
+  margin-bottom: 22px;
 }
 
 .project-images img {
@@ -82,6 +82,26 @@ h1 {
   display: block;
   border-radius: 16px;
   background: #e9edf2;
+}
+
+/* 2 images */
+.project-images.two-images {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* 3 images */
+.project-images.three-images {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.project-images.three-images img:first-child {
+  grid-column: 1 / -1;
+  height: 300px;
+}
+
+/* 4 images */
+.project-images.four-images {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .project-card h2 {
@@ -119,7 +139,6 @@ h1 {
 }
 
 /* HERO SECTION */
-
 .hero-section {
   margin-bottom: 60px;
 }
@@ -151,24 +170,21 @@ h1 {
 
 .hero-image {
   width: 100%;
-  max-width: 500px;
+  max-width: 260px;
   border-radius: 20px;
   object-fit: cover;
   background: #e5e7eb;
 }
 
 /* LIGHTBOX */
-
 #lightbox {
   display: none;
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.88);
   z-index: 9999;
-
   justify-content: center;
   align-items: center;
-
   padding: 24px;
 }
 
@@ -183,10 +199,8 @@ h1 {
   width: auto;
   height: auto;
   object-fit: contain;
-
   border-radius: 12px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-
   transform: scale(0.96);
   transition: transform 0.18s ease;
 }
@@ -209,6 +223,7 @@ h1 {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   filter: brightness(1.03);
 }
+
 /* TABLET + MOBILE */
 @media (max-width: 900px) {
   .projects-header,
@@ -229,6 +244,10 @@ h1 {
     height: 220px;
   }
 
+  .project-images.three-images img:first-child {
+    height: 240px;
+  }
+
   .hero-image {
     max-width: 200px;
   }
@@ -236,11 +255,15 @@ h1 {
 
 /* SMALL MOBILE */
 @media (max-width: 640px) {
-  .project-images {
+  .project-images.two-images,
+  .project-images.three-images,
+  .project-images.four-images,
+  .projects-grid {
     grid-template-columns: 1fr;
   }
 
-  .projects-grid {
-    grid-template-columns: 1fr;
+  .project-images.three-images img:first-child {
+    grid-column: auto;
+    height: 220px;
   }
 }
