@@ -29,7 +29,7 @@
         </div>
 
         <div class="hero-image-container">
-          <img src="images/profile.jpg" alt="Parker Lennig" class="hero-image" onclick="openImage(this.src)" />
+          <img src="images/profile.jpg" alt="Parker Lennig" class="hero-image" onclick="openGallery(this)" />
         </div>
       </div>
     </section>
@@ -49,12 +49,11 @@
 
       <div class="projects-grid">
 
-        <!-- 2 IMAGES EXAMPLE -->
         <article class="project-card">
           <div class="project-images three-images">
-            <img src="images/bumper1.png" alt="Initial Vehicle Damage" onclick="openImage(this.src)" />
-            <img src="images/bumper2.png" alt="Post-Body Work, During Bumper Fabrication" onclick="openImage(this.src)" />
-            <img src="images/bumper3.png" alt="Finished Repairs" onclick="openImage(this.src)" />
+            <img src="images/bumper1.png" alt="Initial Vehicle Damage" onclick="openGallery(this)" />
+            <img src="images/bumper2.png" alt="Post-Body Work, During Bumper Fabrication" onclick="openGallery(this)" />
+            <img src="images/bumper3.png" alt="Finished Repairs" onclick="openGallery(this)" />
           </div>
           <h2>Welded Offroad Bumper for 4X4</h2>
           <p class="subtitle">Personal Manufacturing Project</p>
@@ -75,11 +74,10 @@
           </div>
         </article>
 
-        <!-- 2 IMAGES EXAMPLE -->
         <article class="project-card">
           <div class="project-images two-images">
-            <img src="images/swaybar1.png" alt="CAD Model of Extended Link" onclick="openImage(this.src)" />
-            <img src="images/swaybar2.png" alt="Engineering Drawing for Fabricated Parts" onclick="openImage(this.src)" />
+            <img src="images/swaybar1.png" alt="CAD Model of Extended Link" onclick="openGallery(this)" />
+            <img src="images/swaybar2.png" alt="Engineering Drawing for Fabricated Parts" onclick="openGallery(this)" />
           </div>
           <h2>Sway Bar End Link Design</h2>
           <p class="subtitle">Personal Design Project</p>
@@ -99,12 +97,11 @@
           </div>
         </article>
 
-        <!-- 3 IMAGES EXAMPLE -->
         <article class="project-card">
           <div class="project-images three-images">
-            <img src="images/project3a.jpg" alt="Brake analysis image 1" onclick="openImage(this.src)" />
-            <img src="images/project3b.jpg" alt="Brake analysis image 2" onclick="openImage(this.src)" />
-            <img src="images/project3c.jpg" alt="Brake analysis image 3" onclick="openImage(this.src)" />
+            <img src="images/project3a.jpg" alt="Brake analysis image 1" onclick="openGallery(this)" />
+            <img src="images/project3b.jpg" alt="Brake analysis image 2" onclick="openGallery(this)" />
+            <img src="images/project3c.jpg" alt="Brake analysis image 3" onclick="openGallery(this)" />
           </div>
           <h2>Brake System Analysis</h2>
           <p class="subtitle">Automotive Engineering Study</p>
@@ -120,13 +117,12 @@
           </div>
         </article>
 
-        <!-- 4 IMAGES EXAMPLE -->
         <article class="project-card">
           <div class="project-images four-images">
-            <img src="images/project4a.jpg" alt="RS390 concept image 1" onclick="openImage(this.src)" />
-            <img src="images/project4b.jpg" alt="RS390 concept image 2" onclick="openImage(this.src)" />
-            <img src="images/project4c.jpg" alt="RS390 concept image 3" onclick="openImage(this.src)" />
-            <img src="images/project4d.jpg" alt="RS390 concept image 4" onclick="openImage(this.src)" />
+            <img src="images/project4a.jpg" alt="RS390 concept image 1" onclick="openGallery(this)" />
+            <img src="images/project4b.jpg" alt="RS390 concept image 2" onclick="openGallery(this)" />
+            <img src="images/project4c.jpg" alt="RS390 concept image 3" onclick="openGallery(this)" />
+            <img src="images/project4d.jpg" alt="RS390 concept image 4" onclick="openGallery(this)" />
           </div>
           <h2>RS390 Motor Project Concepts</h2>
           <p class="subtitle">Small Electromechanical Systems</p>
@@ -148,32 +144,103 @@
   </main>
 
   <!-- LIGHTBOX -->
-  <div id="lightbox">
+  <div id="lightbox" aria-hidden="true">
+    <button id="lightbox-close" type="button" aria-label="Close image viewer">&times;</button>
+    <button id="prev-btn" type="button" aria-label="Previous image">&#10094;</button>
     <img id="lightbox-img" src="" alt="Expanded image" />
+    <button id="next-btn" type="button" aria-label="Next image">&#10095;</button>
+    <div id="lightbox-counter"></div>
   </div>
 
   <script>
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const closeBtn = document.getElementById("lightbox-close");
+    const counter = document.getElementById("lightbox-counter");
 
-    function openImage(src) {
-      lightboxImg.src = src;
+    let currentImages = [];
+    let currentIndex = 0;
+
+    function openGallery(clickedImg) {
+      const projectCard = clickedImg.closest(".project-card");
+
+      if (projectCard) {
+        currentImages = Array.from(projectCard.querySelectorAll(".project-images img, .project-image"));
+      } else {
+        currentImages = [clickedImg];
+      }
+
+      currentIndex = currentImages.indexOf(clickedImg);
+      if (currentIndex < 0) currentIndex = 0;
+
+      updateLightboxImage();
       lightbox.classList.add("active");
+      lightbox.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
     }
 
-    function closeImage() {
-      lightbox.classList.remove("active");
-      lightboxImg.src = "";
-      document.body.style.overflow = "";
+    function updateLightboxImage() {
+      lightboxImg.src = currentImages[currentIndex].src;
+      lightboxImg.alt = currentImages[currentIndex].alt || "Expanded image";
+      counter.textContent = currentImages.length > 1 ? `${currentIndex + 1} / ${currentImages.length}` : "";
+      prevBtn.style.display = currentImages.length > 1 ? "flex" : "none";
+      nextBtn.style.display = currentImages.length > 1 ? "flex" : "none";
     }
 
-    lightbox.addEventListener("click", closeImage);
+    function showNextImage() {
+      if (currentImages.length <= 1) return;
+      currentIndex = (currentIndex + 1) % currentImages.length;
+      updateLightboxImage();
+    }
+
+    function showPrevImage() {
+      if (currentImages.length <= 1) return;
+      currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+      updateLightboxImage();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImg.src = "";
+      lightboxImg.alt = "Expanded image";
+      document.body.style.overflow = "";
+      currentImages = [];
+      currentIndex = 0;
+      counter.textContent = "";
+    }
+
+    prevBtn.addEventListener("click", function (event) {
+      event.stopPropagation();
+      showPrevImage();
+    });
+
+    nextBtn.addEventListener("click", function (event) {
+      event.stopPropagation();
+      showNextImage();
+    });
+
+    closeBtn.addEventListener("click", function (event) {
+      event.stopPropagation();
+      closeLightbox();
+    });
+
+    lightboxImg.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+
+    lightbox.addEventListener("click", function () {
+      closeLightbox();
+    });
 
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
-        closeImage();
-      }
+      if (!lightbox.classList.contains("active")) return;
+
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowRight") showNextImage();
+      if (event.key === "ArrowLeft") showPrevImage();
     });
   </script>
 </body>
