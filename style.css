@@ -103,7 +103,36 @@ h1 {
 .project-images.four-images {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+/* PROJECT GIFS */
 
+.project-gifs {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0 20px;
+}
+
+.two-gifs {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.project-gifs img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 800px) {
+  .two-gifs {
+    grid-template-columns: 1fr;
+  }
+
+  .project-gifs img {
+    height: auto;
+  }
+}
 .project-card h2 {
   margin: 0 0 6px 0;
   font-size: 1.8rem;
