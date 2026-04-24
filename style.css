@@ -709,4 +709,9 @@ h2 {
     font-size: 0.85rem;
   }
 }
-
+.contact-email {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  color: #44556b;
+  font-family: monospace;
+}
