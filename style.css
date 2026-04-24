@@ -103,6 +103,41 @@ h1 {
 .project-images.four-images {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+/* SIX IMAGE / GIF PROJECT GRID */
+
+.six-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.six-images img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .six-images {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .six-images img {
+    height: 150px;
+  }
+}
+
+@media (max-width: 500px) {
+  .six-images {
+    grid-template-columns: 1fr;
+  }
+
+  .six-images img {
+    height: auto;
+  }
+}
 /* PROJECT GIFS */
 
 .project-gifs {
